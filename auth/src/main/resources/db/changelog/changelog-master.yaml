@@ -4,5 +4,8 @@ databaseChangeLog:
       name: uuid_default
       value: public.uuid_generate_v4()
   - include:
-      file: changelog-001-create-movie-table.yaml
+      file: changelog-001-create-user-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changelog-002-create-otp-table.yaml
       relativeToChangelogFile: true

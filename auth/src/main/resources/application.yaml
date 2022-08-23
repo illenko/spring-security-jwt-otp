@@ -3,6 +3,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/auth
     username: postgres
     password: postgres
+  liquibase:
+    change-log: db/changelog/changelog-master.yaml
+    url: jdbc:postgresql://localhost:5432/auth
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
   sql:
     init:
       mode: always

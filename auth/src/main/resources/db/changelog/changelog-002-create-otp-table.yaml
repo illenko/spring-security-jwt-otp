@@ -16,4 +16,4 @@ databaseChangeLog:
         - addPrimaryKey:
             columnNames: username
             constraintName: pk_otp
-            tableName: user
+            tableName: otp
