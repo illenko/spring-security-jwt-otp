@@ -18,39 +18,25 @@ class UserService(
     private val passwordEncoder: PasswordEncoder
 ) {
 
-    fun save(user: User): User {
-        user.password = passwordEncoder.encode(user.password)
-        return userRepository.save(user)
-    }
+    fun save(user: User) = userRepository.save(user.apply { password = passwordEncoder.encode(user.password) })
 
     fun auth(user: User) {
-        val savedUser = userRepository.findByUsername(user.username)
-        if (savedUser == null) {
-            throw BadCredentialsException("Username or password is wrong")
-        } else {
-            if (passwordEncoder.matches(passwordEncoder.encode(savedUser.password), user.password)) {
+        userRepository.findByUsername(user.username)?.let {
+            if (passwordEncoder.matches(user.password, it.password)) {
                 renewOtp(user)
             } else {
                 throw BadCredentialsException("Username or password is wrong")
             }
-        }
+        } ?: throw BadCredentialsException("Username or password is wrong")
     }
 
-    fun check(otpToValidate: Otp): Boolean =
-        otpRepository.findByUsername(otpToValidate.username)?.let {
-            return it.code == otpToValidate.code
-        } ?: false
+    fun check(otp: Otp) =
+        otpRepository.findByUsername(otp.username)?.let { it.code == otp.code } ?: false
 
     private fun renewOtp(user: User) {
-        val savedOtp = otpRepository.findByUsername(user.username)
-        val code = GenerateOtpUtil.generateCode()
-
-        if (savedOtp == null) {
-            val otp = Otp(user.username, code)
-            otpRepository.save(otp)
-        } else {
-            savedOtp.code = code
-            otpRepository.save(savedOtp)
-        }
+        otpRepository.findByUsername(user.username)?.apply { code = GenerateOtpUtil.get() } ?: Otp(
+            user.username,
+            GenerateOtpUtil.get()
+        )
     }
 }

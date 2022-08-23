@@ -22,7 +22,7 @@ class SecurityController(private val userService: UserService) {
     @PostMapping("/auth")
     @ResponseStatus(HttpStatus.OK)
     fun auth(@RequestBody user: User) {
-        userService.save(user)
+        userService.auth(user)
     }
 
     @PostMapping("/otp/check")
