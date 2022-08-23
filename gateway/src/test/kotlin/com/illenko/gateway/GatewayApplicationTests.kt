@@ -1,10 +1,10 @@
-package com.illenko.logic
+package com.illenko.gateway
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class LogicApplicationTests {
+class GatewayApplicationTests {
 
 	@Test
 	fun contextLoads() {
