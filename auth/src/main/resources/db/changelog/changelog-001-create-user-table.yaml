@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-1
+      author: illenko
+      comment: Create user table
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: username
+                  type: varchar
+              - column:
+                  name: password
+                  type: varchar
+        - addPrimaryKey:
+            columnNames: username
+            constraintName: pk_user
+            tableName: user

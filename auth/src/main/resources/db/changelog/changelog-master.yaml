@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - property:
+      dbms: postgresql
+      name: uuid_default
+      value: public.uuid_generate_v4()
+  - include:
+      file: changelog-001-create-movie-table.yaml
+      relativeToChangelogFile: true

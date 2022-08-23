@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-2
+      author: illenko
+      comment: Create otp table
+      changes:
+        - createTable:
+            tableName: otp
+            columns:
+              - column:
+                  name: username
+                  type: varchar
+              - column:
+                  name: code
+                  type: varchar
+        - addPrimaryKey:
+            columnNames: username
+            constraintName: pk_otp
+            tableName: user
