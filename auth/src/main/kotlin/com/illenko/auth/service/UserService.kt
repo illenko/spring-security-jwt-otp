@@ -34,9 +34,9 @@ class UserService(
         otpRepository.findByUsername(otp.username)?.let { it.code == otp.code } ?: false
 
     private fun renewOtp(user: User) {
-        otpRepository.findByUsername(user.username)?.apply { code = GenerateOtpUtil.get() } ?: Otp(
+        otpRepository.save(otpRepository.findByUsername(user.username)?.apply { code = GenerateOtpUtil.get() } ?: Otp(
             user.username,
             GenerateOtpUtil.get()
-        )
+        ))
     }
 }

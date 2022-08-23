@@ -1,4 +1,4 @@
-package com.illenko.gateway.config.security
+package com.illenko.gateway.config.security.token
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.GrantedAuthority

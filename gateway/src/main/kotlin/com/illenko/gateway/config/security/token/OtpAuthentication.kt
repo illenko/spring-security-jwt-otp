@@ -1,8 +1,7 @@
-package com.illenko.gateway.config.security
+package com.illenko.gateway.config.security.token
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.GrantedAuthority
-
 
 class OtpAuthentication : UsernamePasswordAuthenticationToken {
     constructor(principal: Any, credentials: Any) : super(principal, credentials)
