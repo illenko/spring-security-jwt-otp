@@ -4,4 +4,4 @@ import javax.persistence.Entity
 import javax.persistence.Id
 
 @Entity
-data class Otp(@Id val username: String, var code: String)
+data class Otp(@Id var username: String, var code: String)

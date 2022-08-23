@@ -18,7 +18,7 @@ class UserService(
     private val passwordEncoder: PasswordEncoder
 ) {
 
-    fun saveUser(user: User): User {
+    fun save(user: User): User {
         user.password = passwordEncoder.encode(user.password)
         return userRepository.save(user)
     }
@@ -36,7 +36,7 @@ class UserService(
         }
     }
 
-    fun checkOtp(otpToValidate: Otp): Boolean =
+    fun check(otpToValidate: Otp): Boolean =
         otpRepository.findByUsername(otpToValidate.username)?.let {
             return it.code == otpToValidate.code
         } ?: false
