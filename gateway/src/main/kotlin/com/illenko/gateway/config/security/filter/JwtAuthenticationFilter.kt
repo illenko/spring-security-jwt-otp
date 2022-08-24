@@ -24,7 +24,7 @@ class JwtAuthenticationFilter(private val authProperties: AuthProperties) : Once
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val claims = getClaims(getKey(), request.getHeader(AUTHORIZATION))
+        val claims = getClaims(getKey(), request.getHeader(AUTHORIZATION).replace(BEARER, ""))
         val username = claims[USER_NAME].toString()
 
         val auth = UsernamePasswordAuthentication(username, null, listOf(SimpleGrantedAuthority(USER)))
@@ -43,5 +43,6 @@ class JwtAuthenticationFilter(private val authProperties: AuthProperties) : Once
         private const val USER_NAME = "username"
         private const val USER = "user"
         private const val AUTHORIZATION = "Authorization"
+        private const val BEARER = "Bearer "
     }
 }

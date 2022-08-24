@@ -22,7 +22,7 @@ class AuthClient(
 
     fun otp(username: String, code: String) =
         rest.postForEntity(
-            "${authProperties.url}/auth",
+            "${authProperties.url}/otp/check",
             HttpEntity(User(username = username, code = code)),
             Unit::class.java
         ).statusCode == HttpStatus.OK
