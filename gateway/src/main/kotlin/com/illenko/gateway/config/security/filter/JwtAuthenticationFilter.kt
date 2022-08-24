@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.nio.charset.StandardCharsets
 import javax.crypto.SecretKey
@@ -13,6 +14,7 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+@Component
 class JwtAuthenticationFilter(private val authProperties: AuthProperties) : OncePerRequestFilter() {
 
     override fun shouldNotFilter(request: HttpServletRequest) = request.servletPath == "/login"
