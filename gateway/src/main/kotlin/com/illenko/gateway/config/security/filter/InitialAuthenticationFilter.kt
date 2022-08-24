@@ -6,14 +6,12 @@ import com.illenko.gateway.properties.AuthProperties
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.nio.charset.StandardCharsets
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@Component
 class InitialAuthenticationFilter(
     private val manager: AuthenticationManager,
     private val authProperties: AuthProperties

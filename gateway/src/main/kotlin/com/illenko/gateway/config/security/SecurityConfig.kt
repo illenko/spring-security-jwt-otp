@@ -4,6 +4,7 @@ import com.illenko.gateway.config.security.filter.InitialAuthenticationFilter
 import com.illenko.gateway.config.security.filter.JwtAuthenticationFilter
 import com.illenko.gateway.config.security.provider.OtpAuthenticationProvider
 import com.illenko.gateway.config.security.provider.UsernamePasswordAuthenticationProvider
+import com.illenko.gateway.properties.AuthProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -14,7 +15,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 class SecurityConfig(
-    private val initialAuthenticationFilter: InitialAuthenticationFilter,
+    private val authProperties: AuthProperties,
     private val jwtAuthenticationFilter: JwtAuthenticationFilter,
     private val otpAuthenticationProvider: OtpAuthenticationProvider,
     private val usernamePasswordAuthenticationProvider: UsernamePasswordAuthenticationProvider
@@ -27,14 +28,14 @@ class SecurityConfig(
 
     override fun configure(http: HttpSecurity) {
         http.csrf().disable()
-        http.addFilterAt(initialAuthenticationFilter, BasicAuthenticationFilter::class.java)
+        http.addFilterAt(initialAuthenticationFilter(), BasicAuthenticationFilter::class.java)
             .addFilterAfter(jwtAuthenticationFilter, BasicAuthenticationFilter::class.java)
-
         http.authorizeRequests().anyRequest().authenticated()
     }
 
     @Bean
-    override fun authenticationManager(): AuthenticationManager {
-        return super.authenticationManager()
-    }
+    override fun authenticationManager(): AuthenticationManager = super.authenticationManager()
+
+    @Bean
+    fun initialAuthenticationFilter() = InitialAuthenticationFilter(authenticationManager(), authProperties)
 }

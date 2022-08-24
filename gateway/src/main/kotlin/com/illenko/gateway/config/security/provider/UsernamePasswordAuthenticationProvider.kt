@@ -3,6 +3,7 @@ package com.illenko.gateway.config.security.provider
 import com.illenko.gateway.config.security.token.UsernamePasswordAuthentication
 import com.illenko.gateway.security.AuthClient
 import org.springframework.security.authentication.AuthenticationProvider
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 
@@ -15,7 +16,7 @@ class UsernamePasswordAuthenticationProvider(private val authClient: AuthClient)
 
         authClient.auth(username, password)
 
-        return UsernamePasswordAuthentication(username, password)
+        return UsernamePasswordAuthenticationToken(username, password)
     }
 
     override fun supports(authentication: Class<*>) =
