@@ -4,8 +4,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority
 
 class UsernamePasswordAuthentication : UsernamePasswordAuthenticationToken {
-    constructor(principal: Any, credentials: Any) : super(principal, credentials)
-    constructor(principal: Any, credentials: Any, authorities: Collection<GrantedAuthority>) : super(
+    constructor(principal: Any, credentials: Any?) : super(principal, credentials)
+    constructor(principal: Any, credentials: Any?, authorities: Collection<GrantedAuthority>?) : super(
         principal,
         credentials,
         authorities
